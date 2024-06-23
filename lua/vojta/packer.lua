@@ -9,13 +9,7 @@ return require('packer').startup(function(use)
     -- web devicons
     use 'nvim-tree/nvim-web-devicons'
 
-    use({
-        'rose-pine/neovim',
-        as = 'rose-pine',
-        config = function()
-            vim.cmd('colorscheme rose-pine')
-        end
-    })
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     -- telescope
     use {

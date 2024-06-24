@@ -78,5 +78,8 @@ return require('packer').startup(function(use)
     end}
     -- copilot
     use {'github/copilot.vim', branch = 'release' }
-
+    -- indentline
+    use "lukas-reineke/indent-blankline.nvim"
+    -- nvim-autotag
+    use "windwp/nvim-ts-autotag"
 end)

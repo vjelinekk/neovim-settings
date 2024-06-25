@@ -82,4 +82,6 @@ return require('packer').startup(function(use)
     use "lukas-reineke/indent-blankline.nvim"
     -- nvim-autotag
     use "windwp/nvim-ts-autotag"
+    -- comments
+    use 'numToStr/Comment.nvim'
 end)

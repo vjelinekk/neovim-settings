@@ -88,4 +88,6 @@ return require('packer').startup(function(use)
     use 'tpope/vim-fugitive'
     -- aerial
     use 'stevearc/aerial.nvim'
+    -- gitgutter
+    use 'airblade/vim-gitgutter'
 end)

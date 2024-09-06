@@ -84,4 +84,8 @@ return require('packer').startup(function(use)
     use "windwp/nvim-ts-autotag"
     -- comments
     use 'numToStr/Comment.nvim'
+    -- fugitive
+    use 'tpope/vim-fugitive'
+    -- aerial
+    use 'stevearc/aerial.nvim'
 end)

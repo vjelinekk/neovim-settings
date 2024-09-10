@@ -3,9 +3,11 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
+    'luals',
 	'tsserver',
 	'rust_analyzer',
     'phpactor',
+    'intelephense',
 })
 
 -- Fix Undefined global 'vim'
@@ -47,7 +49,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "ge", function() vim.diagnostic.open_float() end, opts)
 	vim.keymap.set("n", "gn", function() vim.diagnostic.goto_next() end, opts)
 	vim.keymap.set("n", "gp", function() vim.diagnostic.goto_prev() end, opts)
-	vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+	vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
 	vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
 	vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
@@ -58,4 +60,3 @@ lsp.setup()
 vim.diagnostic.config({
 	virtual_text = true
 })
-

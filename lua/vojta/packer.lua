@@ -90,4 +90,11 @@ return require('packer').startup(function(use)
     use 'stevearc/aerial.nvim'
     -- gitgutter
     use 'airblade/vim-gitgutter'
+    -- file-browser
+    use {
+        "nvim-telescope/telescope-file-browser.nvim",
+        requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+    }
+    -- telescope-ui-selct
+    use 'nvim-telescope/telescope-ui-select.nvim'
 end)

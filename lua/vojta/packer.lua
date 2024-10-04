@@ -97,4 +97,6 @@ return require('packer').startup(function(use)
     }
     -- telescope-ui-selct
     use 'nvim-telescope/telescope-ui-select.nvim'
+    -- vim-tmux-navigator
+    use 'christoomey/vim-tmux-navigator'
 end)

@@ -3,16 +3,16 @@ local lsp = require("lsp-zero")
 lsp.preset("recommended")
 
 lsp.ensure_installed({
-    'luals',
-	'tsserver',
+    'lua_ls',
+	'ts_ls',
 	'rust_analyzer',
     'phpactor',
     'intelephense',
+    'clangd',
 })
 
 -- Fix Undefined global 'vim'
 lsp.nvim_workspace()
-
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}

@@ -6,7 +6,6 @@ lsp.ensure_installed({
     'lua_ls',
 	'ts_ls',
 	'rust_analyzer',
-    'phpactor',
     'intelephense',
     'clangd',
 })

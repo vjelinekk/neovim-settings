@@ -15,13 +15,13 @@ return require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.5',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
     -- fzf
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
     -- treesitter
-    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
+    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use("nvim-treesitter/playground")
     -- harpoon
     use("theprimeagen/harpoon")
@@ -33,21 +33,21 @@ return require('packer').startup(function(use)
         branch = 'v1.x',
         requires = {
             -- LSP Support
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason.nvim'},
-            {'williamboman/mason-lspconfig.nvim'},
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
             -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
-            {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/cmp-nvim-lua'},
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
-            {'rafamadriz/friendly-snippets'},
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
         }
     }
     -- alpha vim
@@ -56,8 +56,8 @@ return require('packer').startup(function(use)
         requires = {
             'nvim-tree/nvim-web-devicons',
         },
-        config = function ()
-            require'alpha'.setup(require'alpha.themes.startify'.config)
+        config = function()
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
         end
     }
     -- lualine
@@ -65,19 +65,20 @@ return require('packer').startup(function(use)
         'nvim-lualine/lualine.nvim',
         requires = { 'nvim-tree/nvim-web-devicons', opt = true }
     }
+    -- switched from nrtree to oil.vim
     -- ntree
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons', -- optional
-        },
-    }
+    -- use {
+    --     'nvim-tree/nvim-tree.lua',
+    --     requires = {
+    --         'nvim-tree/nvim-web-devicons', -- optional
+    --     },
+    -- }
     -- toggleterm
-    use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    use { "akinsho/toggleterm.nvim", tag = '*', config = function()
         require("toggleterm").setup()
-    end}
+    end }
     -- copilot
-    use {'github/copilot.vim', branch = 'release' }
+    use { 'github/copilot.vim', branch = 'release' }
     -- indentline
     use "lukas-reineke/indent-blankline.nvim"
     -- nvim-autotag
@@ -99,4 +100,11 @@ return require('packer').startup(function(use)
     use 'nvim-telescope/telescope-ui-select.nvim'
     -- vim-tmux-navigator
     use 'christoomey/vim-tmux-navigator'
+    -- oil.vim
+    use({
+        "stevearc/oil.nvim",
+        config = function()
+            require("oil").setup()
+        end,
+    })
 end)

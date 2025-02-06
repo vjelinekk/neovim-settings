@@ -101,10 +101,13 @@ return require('packer').startup(function(use)
     -- vim-tmux-navigator
     use 'christoomey/vim-tmux-navigator'
     -- oil.vim
-    use({
-        "stevearc/oil.nvim",
+    use 'stevearc/oil.nvim'
+    -- auto-pairs
+    use {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
         config = function()
-            require("oil").setup()
-        end,
-    })
+            require("nvim-autopairs").setup {}
+        end
+    }
 end)

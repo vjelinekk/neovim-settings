@@ -40,3 +40,4 @@ vim.keymap.set("n", "<leader>;", "<cmd>qa<CR>")
 -- vertical and horizontal split
 vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR>")
 vim.keymap.set("n", "<leader>hs", "<cmd>split<CR>")
+

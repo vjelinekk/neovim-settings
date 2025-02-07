@@ -39,7 +39,7 @@ return {
             builtin.find_files({ no_ignore = true })
         end, { desc = "Find all files (including ignored)" })
         vim.keymap.set('n', '<leader>fp', function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            builtin.live_grep({ hidden = true })
         end, { desc = "Search string with grep" })
     end,
 }

@@ -1,4 +1,4 @@
-require('telescope').setup{
+require('telescope').setup {
     defaults = {
         vimgrep_arguments = {
             'rg',
@@ -15,8 +15,8 @@ require('telescope').setup{
 }
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', ':Telescope find_files no_ignore=true<cr>')
--- vim.keymap.set('n', '<leader>fs', builtin.treesitte)
+vim.keymap.set('n', '<leader>ff', ':Telescope find_files<cr>')
+vim.keymap.set('n', '<leader>fa', ':Telescope find_files no_ignore=true<cr>')
 vim.keymap.set('n', '<leader>fp', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+    builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)

@@ -35,7 +35,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")
-vim.keymap.set("n", "<leader>Q", "<cmd>qa<CR>")
+vim.keymap.set("n", "<leader>;", "<cmd>qa<CR>")
 
 -- vertical and horizontal split
 vim.keymap.set("n", "<leader>vs", "<cmd>vsplit<CR>")

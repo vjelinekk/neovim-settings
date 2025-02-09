@@ -38,7 +38,7 @@ return {
         vim.keymap.set('n', '<leader>fa', function()
             builtin.find_files({ no_ignore = true })
         end, { desc = "Find all files (including ignored)" })
-        vim.keymap.set('n', '<leader>fp', function()
+        vim.keymap.set('n', '<leader>fg', function()
             builtin.live_grep({ hidden = true })
         end, { desc = "Search string with grep" })
     end,

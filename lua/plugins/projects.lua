@@ -8,7 +8,7 @@ return {
         require("telescope").load_extension("projects")
     end,
 
-    vim.keymap.set('n', '<leader>tp', function()
+    vim.keymap.set('n', '<leader>fp', function()
         require("telescope").extensions.projects.projects()
     end, { desc = "Find projects" })
 }

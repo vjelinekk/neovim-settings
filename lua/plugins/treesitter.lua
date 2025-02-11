@@ -1,11 +1,11 @@
 return {
-    { 
-        'nvim-treesitter/nvim-treesitter', 
+    {
+        'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
                 -- A list of parser names, or "all"
-                ensure_installed = { "php", "vimdoc", "javascript", "typescript", "c", "lua", "rust", "html", "markdown", "css" },
+                ensure_installed = { "php", "vimdoc", "javascript", "typescript", "c", "lua", "rust", "html", "markdown", "css", "python" },
 
                 -- Install parsers synchronously (only applied to `ensure_installed`)
                 sync_install = false,

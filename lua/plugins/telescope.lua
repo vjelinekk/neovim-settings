@@ -35,6 +35,7 @@ return {
 
         -- Keybindings
         vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find files" })
+        vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = "Find symbols" })
         vim.keymap.set('n', '<leader>fa', function()
             builtin.find_files({ no_ignore = true })
         end, { desc = "Find all files (including ignored)" })

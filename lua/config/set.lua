@@ -28,6 +28,9 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "90"
 
+vim.opt.fixendofline = false
+vim.opt.fileformats = {"unix", "dos", "mac"}
+
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank({higroup = "IncSearch", timeout = 200})

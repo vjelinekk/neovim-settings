@@ -49,7 +49,6 @@ return {
         'stevearc/aerial.nvim',
         config = function ()
             require('aerial').setup()
-            vim.keymap.set("n", "<leader>fs", "<cmd>AerialNavToggle<CR>")
         end
     },
 

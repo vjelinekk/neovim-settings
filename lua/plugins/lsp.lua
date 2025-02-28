@@ -60,20 +60,27 @@ return {
             }
         })
 
-        lsp.on_attach(function(client, bufnr)
-            local opts = {buffer = bufnr, remap = false}
+        local on_attach = function(client, bufnr)
+            print("LSP started.")
+            local opts = {buffer = bufnr, noremap = true, silent = true}
 
-            vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-            vim.keymap.set("n", "gh", function() vim.lsp.buf.hover() end, opts)
-            vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-            vim.keymap.set("n", "ge", function() vim.diagnostic.open_float() end, opts)
-            vim.keymap.set("n", "gn", function() vim.diagnostic.goto_next() end, opts)
-            vim.keymap.set("n", "gp", function() vim.diagnostic.goto_prev() end, opts)
-            vim.keymap.set("n", "ga", function() vim.lsp.buf.code_action() end, opts)
-            vim.keymap.set("n", "<leader>fu", function() vim.lsp.buf.references() end, opts)
-            vim.keymap.set("n", "<leader>rn", function() vim.lsp.buf.rename() end, opts)
-            vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-        end)
+            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+            vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
+            vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
+            vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
+            vim.keymap.set("n", "gn", vim.diagnostic.goto_next, opts)
+            vim.keymap.set("n", "gp", vim.diagnostic.goto_prev, opts)
+            vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
+            vim.keymap.set("n", "<leader>fu", vim.lsp.buf.references, opts)
+            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+            vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+        end
+
+        lsp.configure("intelephense", {
+            on_attach = on_attach,
+        })
+
+        lsp.on_attach(on_attach)
 
         lsp.setup()
 

@@ -1,4 +1,4 @@
-return { 
+return {
     'theprimeagen/harpoon',
     config = function()
         require('harpoon').setup()
@@ -9,8 +9,8 @@ return {
         vim.keymap.set("n", "<leader>a", mark.add_file)
         vim.keymap.set("n", "<leader>ha", ui.toggle_quick_menu)
 
-        vim.keymap.set("n", "<S-j>", function() ui.nav_prev(1) end)
-        vim.keymap.set("n", "<S-k>", function() ui.nav_next(1) end)
+        vim.keymap.set("n", "<S-j>", function() ui.nav_prev() end)
+        vim.keymap.set("n", "<S-k>", function() ui.nav_next() end)
 
         vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
         vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)

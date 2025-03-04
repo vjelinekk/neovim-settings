@@ -11,6 +11,9 @@ return {
             mappings = {
                 reset = {
                     normal = "<C-x>",
+                },
+                close = {
+                    normal = "<C-c>",
                     insert = "<C-x>",
                 },
             }

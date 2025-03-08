@@ -76,10 +76,6 @@ return {
             vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
         end
 
-        lsp.configure("intelephense", {
-            on_attach = on_attach,
-        })
-
         lsp.on_attach(on_attach)
 
         lsp.setup()

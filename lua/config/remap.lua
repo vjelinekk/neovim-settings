@@ -32,6 +32,20 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gcI<Left><Left><Left><Left>]])
+vim.keymap.set("v", "<leader>s", function()
+    -- Yank the selected text into the "z" register (or any register you want)
+    vim.cmd('normal! "zy')
+
+    -- Escape special characters in the yanked text for search pattern
+    local search = vim.fn.escape(vim.fn.getreg('z'), '\\/.*$^~[]')
+
+    -- Run substitution on the visual selection range with confirmation
+    local cmd = string.format(":'<,'>s/%s/%s/gcI", search, search)
+
+    -- Feed the command to command line, and move cursor left 4 times to allow editing replacement
+    vim.api.nvim_feedkeys(cmd .. string.rep("<Left>", 4), "n", false)
+end, { noremap = true, silent = false, desc = "Substitute visual selection text" })
+
 
 vim.keymap.set({"i", "n"}, "<C-s>", "<Esc><cmd>w<CR>")
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>")

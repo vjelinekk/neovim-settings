@@ -1,87 +1,129 @@
 return {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+    "neovim/nvim-lspconfig",
     dependencies = {
-        { 'neovim/nvim-lspconfig' },
-        { 'williamboman/mason.nvim' },
-        { 'williamboman/mason-lspconfig.nvim' },
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
 
-        -- Autocompletion
-        { 'hrsh7th/nvim-cmp' },
-        { 'hrsh7th/cmp-buffer' },
-        { 'hrsh7th/cmp-path' },
-        { 'saadparwaiz1/cmp_luasnip' },
-        { 'hrsh7th/cmp-nvim-lsp' },
-        { 'hrsh7th/cmp-nvim-lua' },
+        -- Completion
+        "hrsh7th/nvim-cmp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lua",
+        "saadparwaiz1/cmp_luasnip",
 
         -- Snippets
-        { 'L3MON4D3/LuaSnip' },
-        { 'rafamadriz/friendly-snippets' },
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
     },
     config = function()
-        local lsp = require("lsp-zero")
-
-        lsp.preset("recommended")
-
-        lsp.ensure_installed({
-            'lua_ls',
-            'ts_ls',
-            'rust_analyzer',
-            'intelephense',
-            'clangd',
+        -- MASON SETUP
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            ensure_installed = {
+                "lua_ls",
+                "ts_ls",
+                "rust_analyzer",
+                "phpactor",
+                "clangd",
+            },
+            automatic_installation = true,
         })
 
-        -- Fix Undefined global 'vim'
-        lsp.nvim_workspace()
+        -- CMP SETUP
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
 
-        local cmp = require('cmp')
-        local cmp_select = {behavior = cmp.SelectBehavior.Select}
-        local cmp_mappings = lsp.defaults.cmp_mappings({
-            ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-            ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-            ["<C-Space>"] = cmp.mapping.complete(),
+        cmp.setup({
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body)
+                end,
+            },
+            mapping = cmp.mapping.preset.insert({
+                ['<C-n>'] = cmp.mapping.select_next_item(),
+                ['<C-p>'] = cmp.mapping.select_prev_item(),
+                ['<C-Space>'] = cmp.mapping.complete(),
+                ['<CR>'] = cmp.mapping.confirm({
+                    behavior = cmp.ConfirmBehavior.Replace,
+                    select = true,
+                }),
+            }),
+            sources = cmp.config.sources({
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+            }, {
+                    { name = "buffer" },
+                }),
         })
 
-        cmp_mappings['<Tab>'] = nil
-        cmp_mappings['<S-Tab>'] = nil
+        -- CAPABILITIES
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-        lsp.setup_nvim_cmp({
-            mapping = cmp_mappings
-        })
+        -- LSP SERVER CONFIG
+        local lspconfig = require("lspconfig")
 
-        lsp.set_preferences({
-            suggest_lsp_servers = false,
-            sign_icons = {
-                error = 'E',
-                warn = 'W',
-                hint = 'H',
-                info = 'I'
-            }
-        })
-
-        local on_attach = function(client, bufnr)
-            print("LSP started.")
-            local opts = {buffer = bufnr, noremap = true, silent = true}
-
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-            vim.keymap.set("n", "gh", vim.lsp.buf.hover, opts)
-            vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-            vim.keymap.set("n", "ge", vim.diagnostic.open_float, opts)
-            vim.keymap.set("n", "gn", vim.diagnostic.goto_next, opts)
-            vim.keymap.set("n", "gp", vim.diagnostic.goto_prev, opts)
-            vim.keymap.set("n", "ga", vim.lsp.buf.code_action, opts)
-            vim.keymap.set("n", "<leader>fu", vim.lsp.buf.references, opts)
-            vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-            vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+        local jumpFunction = function(direction)
+            return function()
+                vim.diagnostic.jump({
+                    count = direction,
+                    float = true,
+                })
+            end
         end
 
-        lsp.on_attach(on_attach)
+        local hoverFormat = function ()
+            return function ()
+                vim.lsp.buf.hover({
+                    border = "rounded",
+                })
+            end
+        end
 
-        lsp.setup()
+        local on_attach = function(_, bufnr)
+            local opts = { noremap = true, silent = true, buffer = bufnr }
+            local map = vim.keymap.set
+            map("n", "gd", vim.lsp.buf.definition, opts)
+            map("n", "gh", hoverFormat(), opts)
+            map("n", "ge", vim.diagnostic.open_float, opts)
+            map("n", "gn", jumpFunction(1), opts)
+            map("n", "gp", jumpFunction(-1), opts)
+            map("n", "ga", vim.lsp.buf.code_action, opts)
+            map("n", "<leader>fu", vim.lsp.buf.references, opts)
+            map("n", "<leader>rn", vim.lsp.buf.rename, opts)
+            map("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+        end
+
+        -- Setup each LSP server
+        local servers = {
+            lua_ls = {
+                settings = {
+                    Lua = {
+                        diagnostics = {
+                            globals = { "vim" },
+                        },
+                    },
+                },
+            },
+            ts_ls = {},
+            rust_analyzer = {},
+            phpactor = {},
+            clangd = {},
+        }
+
+        for name, config in pairs(servers) do
+            config.capabilities = capabilities
+            config.on_attach = on_attach
+            lspconfig[name].setup(config)
+        end
 
         vim.diagnostic.config({
-            virtual_text = true
+            virtual_text = true,
+            signs = true,
+            update_in_insert = false,
+            underline = true,
+            severity_sort = true,
+            float = { border = "rounded" },
         })
-    end
+    end,
 }

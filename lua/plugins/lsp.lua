@@ -116,7 +116,6 @@ return {
                 },
             },
             ts_ls = {},
-            rust_analyzer = {},
             phpactor = {},
             clangd = {},
         }
